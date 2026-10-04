@@ -57,11 +57,19 @@ def _alternating(messages: list[BaseMessage]) -> list[tuple[str, str]]:
     return out
 
 
+def _provider_message(resp: httpx.Response) -> str:
+    try:
+        err = resp.json().get('error', {})
+        return str(err.get('message') or err)[:200]
+    except ValueError:
+        return ''
+
+
 def _classify(resp: httpx.Response) -> None:
     if resp.status_code in (429, 500, 502, 503, 504):
         raise ModelCallError('transient', f'HTTP {resp.status_code}')
     if resp.status_code >= 400:
-        raise ModelCallError('fatal', f'HTTP {resp.status_code}')
+        raise ModelCallError('fatal', f'HTTP {resp.status_code}: {_provider_message(resp)}'.strip(': '))
 
 
 class HttpModelClient:
@@ -92,6 +100,9 @@ class HttpModelClient:
                 'generationConfig': gen}
         url = f'{settings.gemini_base_url.rstrip("/")}/v1beta/models/{self.name}:generateContent'
         resp = await http.post(url, json=body, headers={'x-goog-api-key': self.key})
+        if resp.status_code == 400 and 'thinkingConfig' in gen:      # newer models may not accept thinkingBudget
+            gen.pop('thinkingConfig')
+            resp = await http.post(url, json=body, headers={'x-goog-api-key': self.key})
         _classify(resp)
         data = resp.json()
         cands = data.get('candidates') or []

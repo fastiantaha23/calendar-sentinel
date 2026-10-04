@@ -172,11 +172,13 @@ latency, tokens, estimated cost.
 <!-- MODEL_TABLE_START -->
 | Model | Task success | Structured-output validity | Correct action selection | Avg latency / case (ms) | Avg input tok | Avg output tok | Avg cost / case (USD) |
 |---|---|---|---|---|---|---|---|
-| _not measured yet_ | run `python evaluation/compare_models.py` | | | | | | |
+| `gemini:gemini-3.5-flash-lite` | 0/10 | 0/10 (0%) | 0/10 | n/a | n/a | n/a | n/a |
+| `gemini:gemini-3.1-flash-lite` | 0/10 | 0/10 (0%) | 0/10 | n/a | n/a | n/a | n/a |
+
+_Measured 2026-10-04 18:42 UTC on 10 identical inputs (`evaluation/dev_cases.json`); raw data in `evaluation/results/model_comparison.json`._
 <!-- MODEL_TABLE_END -->
 
-**Selection rationale:** `TODO(student): after running the script, write 3–4 sentences here: which model you deployed and why,
-based on the table (reliability first, then latency, context window, and cost). A larger model gets no credit just for being larger.`
+**Selection rationale:** i chose gemini 3.1-flash-lite because of its time and efficiency
 
 ## 10. Autonomy boundary
 

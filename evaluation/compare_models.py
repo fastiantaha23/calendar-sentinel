@@ -6,7 +6,7 @@ server's /chat route (which lets the request choose the model) and writes:
 and refreshes the table between the MODEL_TABLE markers in README.md.
 
 Usage (server running with API keys for every model you compare):
-  python evaluation/compare_models.py --url http://127.0.0.1:8000 --models gemini:gemini-2.5-flash-lite gemini:gemini-2.5-flash
+  python evaluation/compare_models.py --url http://127.0.0.1:8000 --models gemini:gemini-3.1-flash-lite gemini:gemini-3.5-flash
 If --models is omitted, every id returned by GET /models is compared.
 Nothing here is fabricated: every number comes from real responses. Cost is 'n/a' unless MODEL_PRICES_JSON is set."""
 import argparse
@@ -28,7 +28,24 @@ p.add_argument('--delay', type=float, default=7.0, help='seconds between calls (
 args = p.parse_args()
 base = args.url.rstrip('/')
 
+
+def describe(exc):
+    if isinstance(exc, httpx.HTTPStatusError):
+        return f'HTTP {exc.response.status_code}: {exc.response.text[:150]}'
+    return f'{type(exc).__name__}: {str(exc)[:120]}'
+
+
+try:
+    httpx.get(base + '/health', timeout=60).raise_for_status()
+except httpx.HTTPError as exc:
+    raise SystemExit(f'CANNOT REACH {base}/health  ({describe(exc)})\n'
+                     'Start the server first (python run.py in ANOTHER terminal) or pass --url https://YOUR-APP.onrender.com')
+
 models = args.models or httpx.get(base + '/models', timeout=20).json()['models']
+allowed = httpx.get(base + '/models', timeout=30).json()['models']
+missing = [m for m in models if m not in allowed]
+if missing:
+    raise SystemExit(f'These models are NOT enabled on the server: {missing}\nEnabled models: {allowed}\nFix ALLOWED_MODELS (and restart / redeploy) or change --models.')
 if len(models) < 2:
     raise SystemExit(f'Need at least two models, got {models}. Set ALLOWED_MODELS and the provider keys.')
 cases = json.loads((HERE / 'dev_cases.json').read_text(encoding='utf-8'))
@@ -64,13 +81,13 @@ for model in models:
                        latency_ms=m['latency_ms'] or wall, input_tokens=m['input_tokens'], output_tokens=m['output_tokens'],
                        cost_usd=m['estimated_cost_usd'])
         except (httpx.HTTPError, KeyError, ValueError) as exc:
-            row.update(error=type(exc).__name__, success=False, valid_decisions=0, total_decisions=1, action_ok=False)
+            row.update(error=describe(exc), success=False, valid_decisions=0, total_decisions=1, action_ok=False)
         try:
             httpx.delete(base + '/chat/' + body['session_id'], timeout=20)
         except httpx.HTTPError:
             pass
         rows.append(row)
-        print(f"{model:40s} {c['name']:42s} success={row['success']}")
+        print(f"{model:40s} {c['name']:42s} success={row['success']}" + (f"  ERROR: {row['error']}" if row.get('error') else ''))
         time.sleep(args.delay)
     report[model] = rows
 
@@ -83,6 +100,9 @@ def avg(vals):
 def fmt(v, spec='{:.0f}', none='n/a'):
     return none if v is None else spec.format(v)
 
+
+if all(r.get('error') for rows in report.values() for r in rows):
+    raise SystemExit('Every request failed - NOT writing a table. Fix the error shown above and run again.')
 
 header = ('| Model | Task success | Structured-output validity | Correct action selection | Avg latency / case (ms) | '
           'Avg input tok | Avg output tok | Avg cost / case (USD) |\n|---|---|---|---|---|---|---|---|')

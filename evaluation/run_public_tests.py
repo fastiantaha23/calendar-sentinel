@@ -19,6 +19,19 @@ args = parser.parse_args()
 base = args.url.rstrip('/')
 
 
+def describe(exc):
+    if isinstance(exc, httpx.HTTPStatusError):
+        return f'HTTP {exc.response.status_code}: {exc.response.text[:150]}'
+    return f'{type(exc).__name__}: {str(exc)[:120]}'
+
+
+try:
+    httpx.get(base + '/health', timeout=60).raise_for_status()
+except httpx.HTTPError as exc:
+    raise SystemExit(f'CANNOT REACH {base}/health  ({describe(exc)})\n'
+                     'Start the server first (python run.py in ANOTHER terminal) or pass --url https://YOUR-APP.onrender.com')
+
+
 def as_list(x):
     return x if isinstance(x, list) else [x]
 
@@ -39,9 +52,9 @@ for case in cases:
                    final_response=res['final_response'][:300])
     except (httpx.HTTPError, KeyError, ValueError) as exc:
         ok = False
-        row.update(passed=False, error=type(exc).__name__)
+        row.update(passed=False, error=describe(exc))
     passed += ok
-    print(('PASS ' if ok else 'FAIL ') + case['name'] + (f"  -> {row.get('status')}/{row.get('stop_reason')}" if not ok else ''))
+    print(('PASS ' if ok else 'FAIL ') + case['name'] + (f"  -> {row.get('status')}/{row.get('stop_reason')}" if not ok else '') + (f"  ERROR: {row['error']}" if row.get('error') else ''))
     results.append(row)
     time.sleep(args.delay)
 
@@ -61,7 +74,7 @@ try:
     mt.update(turn1=[first['status'], first['final_response'][:200]], turn2=[second['status'], second['final_response'][:200]], passed=ok)
 except (httpx.HTTPError, KeyError, ValueError) as exc:
     ok = False
-    mt.update(passed=False, error=type(exc).__name__)
+    mt.update(passed=False, error=describe(exc))
 finally:
     try:
         httpx.delete(base + '/chat/' + session, timeout=20)

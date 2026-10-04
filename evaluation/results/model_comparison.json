@@ -1,0 +1,166 @@
+{
+  "gemini:gemini-3.5-flash-lite": [
+    {
+      "case": "d01 single deadline, explicit date",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    },
+    {
+      "case": "d02 deadline with reminder",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    },
+    {
+      "case": "d03 missing date",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    },
+    {
+      "case": "d04 timed event with a clash",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    },
+    {
+      "case": "d05 outline with 3 dates",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    },
+    {
+      "case": "d06 injection in outline",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    },
+    {
+      "case": "d07 restricted request",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    },
+    {
+      "case": "d08 list existing",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    },
+    {
+      "case": "d09 relative date",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    },
+    {
+      "case": "d10 off-topic",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    }
+  ],
+  "gemini:gemini-3.1-flash-lite": [
+    {
+      "case": "d01 single deadline, explicit date",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    },
+    {
+      "case": "d02 deadline with reminder",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    },
+    {
+      "case": "d03 missing date",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    },
+    {
+      "case": "d04 timed event with a clash",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    },
+    {
+      "case": "d05 outline with 3 dates",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    },
+    {
+      "case": "d06 injection in outline",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    },
+    {
+      "case": "d07 restricted request",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    },
+    {
+      "case": "d08 list existing",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    },
+    {
+      "case": "d09 relative date",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    },
+    {
+      "case": "d10 off-topic",
+      "error": "ConnectError",
+      "success": false,
+      "valid_decisions": 0,
+      "total_decisions": 1,
+      "action_ok": false
+    }
+  ]
+}

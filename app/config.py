@@ -30,7 +30,7 @@ class Settings(BaseSettings):
     max_steps: int = Field(default=6, ge=1, le=6)             # model decisions incl. repairs
     max_tool_retries: int = Field(default=2, ge=0, le=2)      # infra retries per tool call
     max_repairs: int = Field(default=2, ge=0, le=2)           # consecutive contract repairs
-    max_output_tokens: int = Field(default=512, ge=1)         # per model call
+    max_output_tokens: int = Field(default=1024, ge=1)         # per model call
     max_total_tokens: int = Field(default=30000, ge=1)        # per run (input+output)
     max_input_chars: int = Field(default=24000, ge=1000)      # task+context+history per run
     run_timeout_seconds: float = Field(default=40, gt=0, le=40)
