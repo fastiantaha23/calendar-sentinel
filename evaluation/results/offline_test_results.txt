@@ -1,0 +1,47 @@
+Offline test run (scripted model, no network). Generated 2026-10-03T19:37Z with Python 3.12.3
+
+test_model_declared_approval_required (test_agent.AutonomyBoundary.test_model_declared_approval_required) ... ok
+test_restricted_tool_never_runs_but_safe_part_does (test_agent.AutonomyBoundary.test_restricted_tool_never_runs_but_safe_part_does) ... ok
+test_default_cap_is_six_even_if_env_allows_more (test_agent.Budgets.test_default_cap_is_six_even_if_env_allows_more) ... ok
+test_model_can_declare_budget_exceeded (test_agent.Budgets.test_model_can_declare_budget_exceeded) ... ok
+test_model_outage_is_typed_not_a_crash (test_agent.Budgets.test_model_outage_is_typed_not_a_crash) ... ok
+test_oversized_input_is_refused_explicitly (test_agent.Budgets.test_oversized_input_is_refused_explicitly) ... ok
+test_step_budget_stops_endless_loop (test_agent.Budgets.test_step_budget_stops_endless_loop) ... ok
+test_token_budget (test_agent.Budgets.test_token_budget) ... ok
+test_invalid_decision_fault_is_repaired_and_counted (test_agent.ContractRecovery.test_invalid_decision_fault_is_repaired_and_counted) ... ok
+test_json_in_code_fence_is_accepted (test_agent.ContractRecovery.test_json_in_code_fence_is_accepted) ... ok
+test_repeated_garbage_gives_typed_contract_error (test_agent.ContractRecovery.test_repeated_garbage_gives_typed_contract_error) ... ok
+test_terminal_status_with_action_is_inconsistent (test_agent.ContractRecovery.test_terminal_status_with_action_is_inconsistent) ... ok
+test_unknown_action_is_rejected (test_agent.ContractRecovery.test_unknown_action_is_rejected) ... ok
+test_wrong_typed_and_out_of_range_arguments_are_contract_violations (test_agent.ContractRecovery.test_wrong_typed_and_out_of_range_arguments_are_contract_violations) ... ok
+test_clarification_stops_without_tools (test_agent.HappyPathAndAmbiguity.test_clarification_stops_without_tools) ... ok
+test_create_then_complete (test_agent.HappyPathAndAmbiguity.test_create_then_complete) ... ok
+test_duplicate_create_is_idempotent (test_agent.HappyPathAndAmbiguity.test_duplicate_create_is_idempotent) ... ok
+test_invented_date_is_rejected_by_evidence_check (test_agent.HappyPathAndAmbiguity.test_invented_date_is_rejected_by_evidence_check) ... ok
+test_time_conflict_is_reported_not_overwritten (test_agent.HappyPathAndAmbiguity.test_time_conflict_is_reported_not_overwritten) ... ok
+test_no_hardcoded_injection_phrases_or_test_strings_in_source (test_agent.Hygiene.test_no_hardcoded_injection_phrases_or_test_strings_in_source) ... ok
+test_no_secrets_in_repo_files (test_agent.Hygiene.test_no_secrets_in_repo_files) ... ok
+test_clarification_across_two_messages_in_one_chat (test_agent.MultiTurn.test_clarification_across_two_messages_in_one_chat) ... ok
+test_memory_bound (test_agent.MultiTurn.test_memory_bound) ... ok
+test_sessions_are_isolated_and_reset_works (test_agent.MultiTurn.test_sessions_are_isolated_and_reset_works) ... ok
+test_unknown_model_rejected (test_agent.MultiTurn.test_unknown_model_rejected) ... ok
+test_followed_injection_cannot_execute_restricted_actions (test_agent.PromptInjectionAndBoundaries.test_followed_injection_cannot_execute_restricted_actions)
+Even if a model were fooled, the gateway holds the authority line. ... ok
+test_untrusted_text_is_fenced_labelled_and_never_in_system_prompt (test_agent.PromptInjectionAndBoundaries.test_untrusted_text_is_fenced_labelled_and_never_in_system_prompt) ... ok
+test_anthropic_request_and_usage (test_agent.ProviderClients.test_anthropic_request_and_usage) ... ok
+test_cost_estimate_is_null_when_unknown (test_agent.ProviderClients.test_cost_estimate_is_null_when_unknown) ... ok
+test_gemini_request_and_usage (test_agent.ProviderClients.test_gemini_request_and_usage) ... ok
+test_http_errors_are_classified (test_agent.ProviderClients.test_http_errors_are_classified) ... ok
+test_unconfigured_provider_is_rejected (test_agent.ProviderClients.test_unconfigured_provider_is_rejected) ... ok
+test_fault_shorthand_and_expanded_forms (test_agent.ScaffoldAndContract.test_fault_shorthand_and_expanded_forms) ... ok
+test_http_contract (test_agent.ScaffoldAndContract.test_http_contract) ... ok
+test_manifest_lists_every_registered_tool (test_agent.ScaffoldAndContract.test_manifest_lists_every_registered_tool) ... ok
+test_no_model_configured_is_typed_failure (test_agent.ScaffoldAndContract.test_no_model_configured_is_typed_failure) ... ok
+test_fault_fires_once_only (test_agent.ToolFailure.test_fault_fires_once_only) ... ok
+test_malformed_output_fault_is_retried_then_succeeds (test_agent.ToolFailure.test_malformed_output_fault_is_retried_then_succeeds) ... ok
+test_no_retries_configured_means_immediate_tool_error (test_agent.ToolFailure.test_no_retries_configured_means_immediate_tool_error) ... ok
+test_persistent_failure_stops_gracefully_with_draft (test_agent.ToolFailure.test_persistent_failure_stops_gracefully_with_draft) ... ok
+test_timeout_fault_is_retried_then_succeeds (test_agent.ToolFailure.test_timeout_fault_is_retried_then_succeeds) ... ok
+----------------------------------------------------------------------
+Ran 41 tests in 0.134s
+OK

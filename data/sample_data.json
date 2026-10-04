@@ -1,0 +1,10 @@
+{
+  "note": "Safe synthetic sandbox data. No real people, accounts or calendars. offset_days is relative to the run's 'today'.",
+  "calendar_seed": [
+    {"title": "Database Systems lecture", "offset_days": 2, "start_time": "10:00", "duration_minutes": 90},
+    {"title": "Team standup", "offset_days": 3, "start_time": "09:30", "duration_minutes": 30},
+    {"title": "Algorithms quiz", "offset_days": 5, "start_time": "14:00", "duration_minutes": 60},
+    {"title": "Gym session", "offset_days": 5, "start_time": "17:00", "duration_minutes": 60}
+  ],
+  "example_course_outline": "CS-301 outline. Assignment 1 due 2026-11-12. Midterm exam on 2026-11-20 at 09:00 for 120 minutes. Project proposal due 2026-12-01."
+}

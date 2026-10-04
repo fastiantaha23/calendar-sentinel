@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: calendar-sentinel
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 1
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.10
+      - key: MODEL_PROVIDER
+        value: gemini
+      - key: MODEL_NAME
+        value: gemini-2.5-flash-lite
+      - key: ALLOWED_MODELS
+        value: gemini:gemini-2.5-flash-lite,gemini:gemini-2.5-flash
+      - key: GEMINI_API_KEY
+        sync: false        # set the secret value in the Render dashboard, never in git
+      - key: ANTHROPIC_API_KEY
+        sync: false

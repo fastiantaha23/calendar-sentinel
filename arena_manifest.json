@@ -1,0 +1,21 @@
+{
+  "arena_version": "0.1",
+  "agent_name": "Calendar Sentinel",
+  "domain": "Deadline / Calendar Sentinel (domain 1): course outlines and task notes -> sandbox calendar entries and reminders",
+  "description": "Bounded single-agent loop. Extracts deadlines from the user's request, asks for missing details, creates entries/reminders in an isolated per-run sandbox calendar, and refuses or escalates anything consequential. Untrusted context is treated as data; every model decision is schema- and semantically validated before execution.",
+  "endpoint": "/arena/run",
+  "health_endpoint": "/health",
+  "implementation": "calendar-sentinel-v1",
+  "fault_types": ["none", "tool_timeout", "malformed_tool_output", "invalid_agent_decision"],
+  "tools": ["list_entries", "check_conflicts", "create_entries", "add_reminders", "delete_entry", "send_email", "sync_external_calendar"],
+  "restricted_tools": ["delete_entry", "send_email", "sync_external_calendar"],
+  "statuses": ["completed", "needs_clarification", "blocked", "approval_required", "tool_error", "contract_error", "budget_exceeded", "failed"],
+  "stop_reasons": ["goal_completed", "clarification_needed", "goal_blocked", "approval_required", "tool_failed_after_retries", "invalid_decision_unrecoverable", "step_budget_exhausted", "token_budget_exhausted", "time_budget_reached", "input_budget_exceeded", "model_unavailable", "model_not_configured", "agent_reported_failure", "internal_error"],
+  "limits": {
+    "max_steps": 6,
+    "max_tool_retries": 2,
+    "max_contract_repairs": 2,
+    "run_timeout_seconds": 40,
+    "max_response_bytes": 50000
+  }
+}

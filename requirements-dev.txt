@@ -1,0 +1,2 @@
+# Only needed to build the submission PDF/ZIP locally (not installed on Render)
+reportlab>=4
